@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./css/style.css"> -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+*{
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    height: 60px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: grey;
+}
+
+.navbar .container {
+    width: 80%;
+    height: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar a {
+    padding: 8px 10px;
+    text-decoration: none;
+    color:#fff;
+}
+
+.navbar a:active,
+.navbar a:hover {
+    border-radius: 3px;
+    background-color: #555;
+}
+
+.container {
+    margin-top: 4rem;
+    width: 100%;
+    height: 100%;
+}
+
+.container .row {
+    width: 80%;
+    margin: auto;
+}
+
+.container .row .title {
+    text-align: center;
+}
+
+/* form */
+.box {
+    width: 50%;
+    overflow-x: auto;
+    border: 2px solid grey;
+    margin: auto;
+    padding: 20px;
+}
+.form-input {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 2rem;
+    margin: auto;
+}
+
+.form-control {
+    border: 1px solid grey;
+    outline: none;
+    padding: 8px 10px;
+    width: 100%;
+}
+
+.btn-group {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.btn {
+    border: none;
+    padding: 8px 10px;
+    cursor: pointer;
+    color:#fff;
+}
+
+.success { background-color: green;}
+.danger { background-color: red;}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/">CRUD API</a>
+
+            <div class="menu">
+                <a href="/">Home</a>
+                <a href="/create">Create</a>
+            </div>
+        </div>
+    </nav>
+     
+    <section class="container">
+        <div class="row">
+            <div class="title">
+                <h1>Update Bike Info</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="box">
+                <form autocomplete="off" method="post" id="bikeForm">
+                    <div class="form-input">
+                        <label for="title">Bike title</label>
+                        <input type="text" name="title" id="title" class="form-control" value="<%= bike.title %>" required>
+                    </div>
+                    <div class="form-input">
+                        <label for="color">Bike Color</label>
+                        <input type="text" name="color" id="color" value="<%= bike.color %>" class="form-control" required>
+                    </div>
+                    <div class="form-input">
+                        <label for="model">Bike Model</label>
+                        <input type="number" name="model" id="model" value="<%= bike.model %>" class="form-control" required>
+                    </div>
+                    <div class="form-input">
+                        <label for="company">Bike Company</label>
+                        <input type="text" name="company" id="company" value="<%= bike.company %>" class="form-control" required>
+                    </div>
+                    <div class="form-input">
+                        <label for="price">Bike Price</label>
+                        <input type="number" name="price" id="price" value="<%= bike.price %>" class="form-control" required>
+                    </div>
+                    <div class="form-input">
+                        <div class="btn-group">
+                            <input type="submit" value="Update Bike Info" class="btn success">
+                            <input type="reset" value="Clear" class="btn danger">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script>
+        let bikeForm = document.getElementById("bikeForm");
+let titleEl = document.getElementById("title");
+let colorEl = document.getElementById("color");
+let modelEl = document.getElementById("model");
+let companyEl = document.getElementById("company");
+let priceEl = document.getElementById("price");
+
+// to the id from url path
+let bikeId = window.location.pathname.slice(6,window.location.pathname.length)
+console.log("bikeid =", bikeId)
+
+bikeForm.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    let data = {
+        title: titleEl.value,
+        color: colorEl.value,
+        model: modelEl.value,
+        company: companyEl.value,
+        price: priceEl.value
+    };
+    console.log(`data =`, data)
+
+    await fetch(`/api/bike/update/${bikeId}`, {
+        method: "PATCH",
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify(data)
+    }).then(res => res.json())
+    .then(res => {
+        alert(res.msg)
+        window.location.href = "/"
+    })
+    .catch(err => alert(err.msg))
+});
+    </script>
+</body>
+</html>

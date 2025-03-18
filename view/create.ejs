@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="/">CRUD API</a>
+
+            <div class="menu">
+                <a href="/">Home</a>
+                <a href="/create">Create</a>
+            </div>
+        </div>
+    </nav>
+     
+    <section class="container">
+        <div class="row">
+            <div class="title">
+                <h1>Create Bike Info</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="box">
+                <form autocomplete="off" method="post" id="bikeForm">
+                    <div class="form-input">
+                        <label for="title">Bike title</label>
+                        <input type="text" name="title" id="title" class="form-control" required>
+                    </div>
+                    <div class="form-input">
+                        <label for="color">Bike Color</label>
+                        <input type="text" name="color" id="color" class="form-control" required>
+                    </div>
+                    <div class="form-input">
+                        <label for="model">Bike Model</label>
+                        <input type="number" name="model" id="model" class="form-control" required>
+                    </div>
+                    <div class="form-input">
+                        <label for="company">Bike Company</label>
+                        <input type="text" name="company" id="company" class="form-control" required>
+                    </div>
+                    <div class="form-input">
+                        <label for="price">Bike Price</label>
+                        <input type="number" name="price" id="price" class="form-control" required>
+                    </div>
+                    <div class="form-input">
+                        <div class="btn-group">
+                            <input type="submit" value="Add Bike Info" class="btn success">
+                            <input type="reset" value="Clear" class="btn danger">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <script src="./js/add.js"></script>
+</body>
+</html>
