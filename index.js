@@ -18,6 +18,11 @@ app.use(express.static("./view"))
 // body parser middleware
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(cors({
+     origin: "*",
+     methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
+     preflightContinue: false,
+}))
 
 // import route into index
 app.use(`/`, require('./router/bike.route'))
